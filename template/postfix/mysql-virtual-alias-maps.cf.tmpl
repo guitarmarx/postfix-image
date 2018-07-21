@@ -1,0 +1,15 @@
+user = $DB_USER
+password = $DB_PASS
+hosts = $DB_HOST
+dbname = $DB_NAME
+query = SELECT email FROM virtual_aliases WHERE alias='%s'
+
+
+
+#CREATE TABLE virtual_aliases (
+#  alias varchar(100)  NOT NULL,
+#  email varchar(100)  NOT NULL,
+#  PRIMARY KEY (alias,email)
+#);
+
+#postmap -q t@meteor-qs.de mysql:/etc/postfix/mysql-virtual-alias-maps.cf
