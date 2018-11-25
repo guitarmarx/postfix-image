@@ -20,7 +20,7 @@ ENV DB_HOST=localhost \
 
 
 #DOMAIN_1 to DOMAIN_10 are possible(incl. KOPANO_HOST_1)
-#USE_FQDN_FROM_HOST needs the following volume: -v /etc/hosts:/tmp/hosts:ro 
+#USE_FQDN_FROM_HOST needs the following volume: -v /etc/hosts:/tmp/hosts:ro
 
 WORKDIR /tmp
 
@@ -32,10 +32,10 @@ RUN apt-get update &&\
 	&& apt-get install -y rsyslog postfix postfix-mysql sasl2-bin libsasl2-modules gettext vim \
 	&& apt-get --purge -y remove 'exim4*'
 
-	
+
 ADD template/ /tmp/template
 ADD entrypoint.sh /tmp
 
 RUN chmod 755 /tmp/entrypoint.sh
 
-ENTRYPOINT ["/tmp/entrypoint.sh"] 
+ENTRYPOINT ["/tmp/entrypoint.sh"]
