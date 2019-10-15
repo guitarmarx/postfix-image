@@ -1,7 +1,7 @@
 
 ### Allgemein
 smtpd_banner = {{ .Env.HOSTNAME }}.{{ .Env.DOMAIN }} ESMTP
-myhostname = {{ .Env.HOSTNAME }}
+myhostname = {{ .Env.HOSTNAME }}.{{ .Env.DOMAIN }}
 mydomain = {{ .Env.DOMAIN }}
 mydestination =
 local_recipient_maps =
