@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Setzen des Hostnames
-export FQDN=`hostname`.$DOMAIN
+export HOSTNAME=`hostname`
 
 #Erstellen der Domänenabhängigen Konfigurationen
 if [ ! -z $DOMAIN ] && [ ! -z $KOPANO_HOST_1 ]; then
