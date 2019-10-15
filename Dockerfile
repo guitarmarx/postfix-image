@@ -9,7 +9,8 @@ ENV DB_HOST=localhost \
 	DB_PASS=kopano \
 	DB_NAME=kopano \
 	ENCRYPT_SETTING=may\
-	DOMAIN_1=localhost.local\
+	DOMAIN=localhost.local \
+	RELAY_DOMAIN_1=localhost.local\
 	KOPANO_HOST_1=localhost \
 	SPAMCHECK_HOST=localhost \
 	SPAMCHECK_PORT=11332 \
@@ -20,8 +21,6 @@ ENV DB_HOST=localhost \
 
 
 #DOMAIN_1 to DOMAIN_10 are possible(incl. KOPANO_HOST_1)
-#USE_FQDN_FROM_HOST needs the following volume: -v /etc/hosts:/tmp/hosts:ro
-
 WORKDIR /tmp
 
 RUN apt-get update &&\
