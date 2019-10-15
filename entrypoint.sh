@@ -48,7 +48,7 @@ fi
 postmap /etc/postfix/transport
 usermod -a -G sasl postfix
 
-#Anpassen der Postfix Config und der Aliase
+# config postfix
 dockerize  -template /tmp/template/postfix/mysql-virtual-alias-maps.cf.tmpl:/etc/postfix/mysql-virtual-alias-maps.cf
 dockerize  -template /tmp/template/postfix/main.cf.tmpl:/etc/postfix/main.cf
 
@@ -58,13 +58,14 @@ mkdir -p /var/spool/postfix/var/run/saslauthd
 rm -rf /run/saslauthd
 ln -s /var/spool/postfix/var/run/saslauthd   /run/saslauthd
 
-#Starten des Sasl Dienstes
-saslauthd -a rimap -O "$IMAPPROXY_HOST" -V -r -m /var/spool/postfix/var/run/saslauthd
-
-
-#Starten von Postfix
+# start postfix
 service postfix start
 postfix reload
+
+# start sasl (when imapproxy host is available)
+echo "wait for imapproxy host $IMAPPROXY_HOST:143 ..."$IMAPPROXY_HOST:143
+dockerize -wait tcp://$IMAPPROXY_HOST:143
+saslauthd -a rimap -O "$IMAPPROXY_HOST" -V -r -m /var/spool/postfix/var/run/saslauthd
 
 
 tail -f /var/log/postfix.log
