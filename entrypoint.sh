@@ -4,8 +4,8 @@
 export HOSTNAME=`hostname`
 
 #Erstellen der Domänenabhängigen Konfigurationen
-if [ ! -z $DOMAIN ] && [ ! -z $KOPANO_HOST_1 ]; then
-        echo $DOMAIN "lmtp:["${KOPANO_HOST}"]:2003" >> /etc/postfix/transport
+if [ ! -z $DOMAIN ] && [ ! -z $KOPANO_HOST ]; then
+        echo $DOMAIN "lmtp:["${KOPANO_HOST}"]:2003" > /etc/postfix/transport
 		echo "$DOMAIN registriert"
 fi
 if [ ! -z $RELAY_DOMAIN_1 ] && [ ! -z $KOPANO_HOST_2 ]; then
@@ -52,12 +52,13 @@ usermod -a -G sasl postfix
 dockerize  -template /tmp/template/postfix/mysql-virtual-alias-maps.cf.tmpl:/etc/postfix/mysql-virtual-alias-maps.cf
 dockerize  -template /tmp/template/postfix/main.cf.tmpl:/etc/postfix/main.cf
 
-#Starten des Sasl Dienstes
-service rsyslog start
+# prepare sasl
 cp /tmp/template/saslauthd/smtpd.conf /etc/postfix/sasl/smtpd.conf
 mkdir -p /var/spool/postfix/var/run/saslauthd
 rm -rf /run/saslauthd
 ln -s /var/spool/postfix/var/run/saslauthd   /run/saslauthd
+
+#Starten des Sasl Dienstes
 saslauthd -a rimap -O "$IMAPPROXY_HOST" -V -r -m /var/spool/postfix/var/run/saslauthd
 
 
@@ -66,4 +67,4 @@ service postfix start
 postfix reload
 
 
-tail -f /var/log/mail.info
+tail -f /var/log/postfix.log
