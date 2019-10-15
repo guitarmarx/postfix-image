@@ -2,7 +2,7 @@
 ### Allgemein
 smtpd_banner = {{ .Env.FQDN }} ESMTP
 myhostname = {{ .Env.FQDN }}
-mydomain = {{ .Env.DOMAIN_1 }}
+mydomain = {{ .Env.DOMAIN }}
 mydestination =
 local_recipient_maps =
 
@@ -32,7 +32,7 @@ queue_run_delay = 5m
 mynetworks = [::1]/128, [::ffff:127.0.0.0]/104, 10.0.0.0/18, 172.0.0.0/10
 
 ### Weiterleitung an Kopano
-relay_domains = {{.Env.DOMAIN_1}} {{.Env.DOMAIN_2}} {{.Env.DOMAIN_3}} {{.Env.DOMAIN_4}} {{.Env.DOMAIN_5}} {{.Env.DOMAIN_6}} {{.Env.DOMAIN_7}} {{.Env.DOMAIN_8}} {{.Env.DOMAIN_9}}
+relay_domains = {{.Env.DOMAIN}} {{.Env.RELAY_DOMAIN_1}} {{.Env.DOMAIN_2}} {{.Env.DOMAIN_3}} {{.Env.DOMAIN_4}} {{.Env.DOMAIN_5}} {{.Env.DOMAIN_6}} {{.Env.DOMAIN_7}} {{.Env.DOMAIN_8}} {{.Env.DOMAIN_9}}
 transport_maps = hash:/etc/postfix/transport
 virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
 

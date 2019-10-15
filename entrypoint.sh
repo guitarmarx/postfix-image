@@ -1,13 +1,17 @@
 #!/bin/bash
 
 #Setzen des Hostnames
-FQDN=`hostname`.$DOMAIN
+export FQDN=`hostname`.$DOMAIN
 
 #Erstellen der Domänenabhängigen Konfigurationen
 if [ ! -z $DOMAIN ] && [ ! -z $KOPANO_HOST_1 ]; then
-        echo $DOMAIN "lmtp:["${KOPANO_HOST_1}"]:2003" >> /etc/postfix/transport
+        echo $DOMAIN "lmtp:["${KOPANO_HOST}"]:2003" >> /etc/postfix/transport
 		echo "$DOMAIN registriert"
-fi
+f
+if [ ! -z $RELAY_DOMAIN_1 ] && [ ! -z $KOPANO_HOST_2 ]; then
+        echo $RELAY_DOMAIN_1 "lmtp:["${KOPANO_HOST_2}"]:2003" >> /etc/postfix/transport
+		echo "$RELAY_DOMAIN_1 registriert"
+fii
 if [ ! -z $RELAY_DOMAIN_2 ] && [ ! -z $KOPANO_HOST_2 ]; then
         echo $RELAY_DOMAIN_2 "lmtp:["${KOPANO_HOST_2}"]:2003" >> /etc/postfix/transport
 		echo "$RELAY_DOMAIN_2 registriert"
