@@ -8,8 +8,8 @@ if [ ! -z $DOMAIN ] && [ ! -z $KOPANO_HOST ]; then
         echo $DOMAIN "lmtp:["${KOPANO_HOST}"]:2003" > /etc/postfix/transport
 		echo "$DOMAIN registriert"
 fi
-if [ ! -z $RELAY_DOMAIN_1 ] && [ ! -z $KOPANO_HOST_2 ]; then
-        echo $RELAY_DOMAIN_1 "lmtp:["${KOPANO_HOST_2}"]:2003" >> /etc/postfix/transport
+if [ ! -z $RELAY_DOMAIN_1 ] && [ ! -z $KOPANO_HOST_1 ]; then
+        echo $RELAY_DOMAIN_1 "lmtp:["${KOPANO_HOST_1}"]:2003" >> /etc/postfix/transport
 		echo "$RELAY_DOMAIN_1 registriert"
 fi
 if [ ! -z $RELAY_DOMAIN_2 ] && [ ! -z $KOPANO_HOST_2 ]; then
