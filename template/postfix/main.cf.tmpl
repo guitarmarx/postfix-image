@@ -1,8 +1,8 @@
 
 ### Allgemein
-smtpd_banner = $FQDN ESMTP
-myhostname = $FQDN
-mydomain = $DOMAIN_1
+smtpd_banner = {{ .Env.FQDN }} ESMTP
+myhostname = {{ .Env.FQDN }}
+mydomain = {{ .Env.DOMAIN_1 }}
 mydestination =
 local_recipient_maps =
 
@@ -13,7 +13,7 @@ smtpd_tls_CAfile=/tmp/cert/fullchain.pem
 smtpd_use_tls=yes
 smtpd_tls_loglevel = 2
 smtpd_tls_received_header = yes
-smtpd_tls_security_level = $ENCRYPT_SETTING
+smtpd_tls_security_level =  {{ .Env.ENCRYPT_SETTING }}
 #smtpd_tls_auth_only = yes
 smtpd_tls_session_cache_timeout = 3600s
 tls_random_source = dev:/dev/urandom
@@ -21,8 +21,8 @@ tls_random_source = dev:/dev/urandom
 
 ### Mail-Queue Einstellungen
 
-maximal_queue_lifetime = $MAXIMAL_QUEUE_LIFETIME
-bounce_queue_lifetime = $BOUNCE_QUEUE_LIFETIME
+maximal_queue_lifetime = {{ .Env.MAXIMAL_QUEUE_LIFETIME }}
+bounce_queue_lifetime = {{ .Env.BOUNCE_QUEUE_LIFETIME }}
 maximal_backoff_time = 15m
 minimal_backoff_time = 5m
 queue_run_delay = 5m
@@ -32,7 +32,7 @@ queue_run_delay = 5m
 mynetworks = [::1]/128, [::ffff:127.0.0.0]/104, 10.0.0.0/18, 172.0.0.0/10
 
 ### Weiterleitung an Kopano
-relay_domains = $DOMAIN_1 $DOMAIN_2 $DOMAIN_3 $DOMAIN_4 $DOMAIN_5 $DOMAIN_6 $DOMAIN_7 $DOMAIN_8 $DOMAIN_9 
+relay_domains = {{.Env.DOMAIN_1}} {{.Env.DOMAIN_2}} {{.Env.DOMAIN_3}} {{.Env.DOMAIN_4}} {{.Env.DOMAIN_5}} {{.Env.DOMAIN_6}} {{.Env.DOMAIN_7}} {{.Env.DOMAIN_8}} {{.Env.DOMAIN_9}}
 transport_maps = hash:/etc/postfix/transport
 virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
 
@@ -45,7 +45,7 @@ smtpd_sasl_security_options = noanonymous
 
 
 ### Spamfilter und DKIM-Signaturen via Rspamd
-smtpd_milters = inet:$SPAMCHECK_HOST:$SPAMCHECK_PORT
+smtpd_milters = inet:${{.Env.SPAMCHECK_HOST}}:{{.Env.SPAMCHECK_PORT}}
 milter_mail_macros =  i {mail_addr} {client_addr} {client_name} {auth_authen}
 milter_default_action = accept
 
@@ -65,7 +65,7 @@ smtpd_helo_restrictions =
 	reject_unauth_pipelining,
 	reject_non_fqdn_hostname
 
-	
+
 smtpd_recipient_restrictions =
 	permit_mynetworks,
 	permit_sasl_authenticated,
@@ -87,7 +87,7 @@ smtpd_recipient_restrictions =
 	reject_rbl_client proxies.blackholes.wirehub.net,
 	reject_rbl_client ix.dnsbl.manitu.net
 
-		
+
 
 ### DNS blocklists
 postscreen_dnsbl_threshold = 2
@@ -106,5 +106,5 @@ append_dot_mydomain = no
 
 ### Trenn-Zeichen für "Address Tagging"
 recipient_delimiter = +
-							
-							
+
+

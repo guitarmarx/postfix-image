@@ -1,7 +1,7 @@
-user = $DB_USER
-password = $DB_PASS
-hosts = $DB_HOST
-dbname = $DB_NAME
+user = {{.Env.DB_USER}}
+password = {{.Env.DB_PASS}}
+hosts = {{.Env.DB_HOST}}
+dbname = {{.Env.DB_NAME}}
 query = SELECT email FROM virtual_aliases WHERE alias='%s'
 
 

@@ -57,9 +57,8 @@ postmap /etc/postfix/transport
 usermod -a -G sasl postfix
 
 #Anpassen der Postfix Config und der Aliase
-envsubst < /tmp/template/postfix/mysql-virtual-alias-maps.cf.tmpl > /etc/postfix/mysql-virtual-alias-maps.cf
-FQDN=$FQDN envsubst < /tmp/template/postfix/main.cf.tmpl > /etc/postfix/main.cf
-
+dockerize  -template /tmp/template/postfix/mysql-virtual-alias-maps.cf.tmpl:/etc/postfix/mysql-virtual-alias-maps.cf
+dockerize  -template /tmp/template/postfix/main.cf.tmpl:/etc/postfix/main.cf
 
 #Starten des Sasl Dienstes
 service rsyslog start
