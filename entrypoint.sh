@@ -7,11 +7,11 @@ export FQDN=`hostname`.$DOMAIN
 if [ ! -z $DOMAIN ] && [ ! -z $KOPANO_HOST_1 ]; then
         echo $DOMAIN "lmtp:["${KOPANO_HOST}"]:2003" >> /etc/postfix/transport
 		echo "$DOMAIN registriert"
-f
+fi
 if [ ! -z $RELAY_DOMAIN_1 ] && [ ! -z $KOPANO_HOST_2 ]; then
         echo $RELAY_DOMAIN_1 "lmtp:["${KOPANO_HOST_2}"]:2003" >> /etc/postfix/transport
 		echo "$RELAY_DOMAIN_1 registriert"
-fii
+fi
 if [ ! -z $RELAY_DOMAIN_2 ] && [ ! -z $KOPANO_HOST_2 ]; then
         echo $RELAY_DOMAIN_2 "lmtp:["${KOPANO_HOST_2}"]:2003" >> /etc/postfix/transport
 		echo "$RELAY_DOMAIN_2 registriert"
@@ -67,4 +67,3 @@ postfix reload
 
 
 tail -f /var/log/mail.info
-
