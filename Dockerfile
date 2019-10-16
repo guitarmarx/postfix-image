@@ -14,20 +14,20 @@ ENV DB_HOST=localhost \
 	SPAMCHECK_HOST=localhost \
 	SPAMCHECK_PORT=11332 \
 	IMAPPROXY_HOST=localhost \
-	MAXIMAL_QUEUE_LIFETIME="2h" \
-	BOUNCE_QUEUE_LIFETIME="2h" \
+	MAXIMAL_QUEUE_LIFETIME="12h" \
+	BOUNCE_QUEUE_LIFETIME="4h" \
 	DOCKERIZE_VERSION=v0.6.1
 
 
 #DOMAIN_1 to DOMAIN_10 are possible(incl. KOPANO_HOST_1)
-WORKDIR /tmp
+WORKDIR /srv
 
 RUN apt-get update &&\
     {\
         echo "postfix postfix/mailname string $DOMAIN_1"; \
         echo  "postfix postfix/main_mailer_type string 'Internet Site'";\
     } | debconf-set-selections  \
-	&& apt-get install -y postfix postfix-mysql sasl2-bin libsasl2-modules curl \
+	&& apt-get install -y postfix postfix-mysql sasl2-bin libsasl2-modules curl procps  net-tools\
 	&& apt-get --purge -y remove 'exim4*'
 
 # download dockerize
@@ -35,9 +35,10 @@ RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
     && tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
     && rm /tmp/dockerize.tar.gz
 
-ADD template/ /tmp/template
-ADD entrypoint.sh /tmp
+ADD template/ /srv/template
+ADD scripts/ /srv/scripts
 
-RUN chmod 755 /tmp/entrypoint.sh
+RUN chmod 755 /srv/scripts/*
 
-ENTRYPOINT ["/tmp/entrypoint.sh"]
+HEALTHCHECK CMD bash /srv/scripts/healthcheck.sh
+ENTRYPOINT ["/srv/scripts/entrypoint.sh"]
