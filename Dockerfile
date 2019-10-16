@@ -18,8 +18,6 @@ ENV DB_HOST=localhost \
 	BOUNCE_QUEUE_LIFETIME="4h" \
 	DOCKERIZE_VERSION=v0.6.1
 
-
-#DOMAIN_1 to DOMAIN_10 are possible(incl. KOPANO_HOST_1)
 WORKDIR /srv
 
 RUN apt-get update &&\
@@ -31,7 +29,7 @@ RUN apt-get update &&\
 	&& apt-get --purge -y remove 'exim4*'
 
 # download dockerize
-RUN curl -L https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz --output /tmp/dockerize.tar.gz  \
+RUN curl -L -k https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz --output /tmp/dockerize.tar.gz  \
     && tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
     && rm /tmp/dockerize.tar.gz
 
