@@ -49,11 +49,11 @@ postmap /etc/postfix/transport
 usermod -a -G sasl postfix
 
 # config postfix
-dockerize  -template /tmp/template/postfix/mysql-virtual-alias-maps.cf.tmpl:/etc/postfix/mysql-virtual-alias-maps.cf
-dockerize  -template /tmp/template/postfix/main.cf.tmpl:/etc/postfix/main.cf
+dockerize  -template /srv/template/postfix/mysql-virtual-alias-maps.cf.tmpl:/etc/postfix/mysql-virtual-alias-maps.cf
+dockerize  -template /srv/template/postfix/main.cf.tmpl:/etc/postfix/main.cf
 
 # prepare sasl
-cp /tmp/template/saslauthd/smtpd.conf /etc/postfix/sasl/smtpd.conf
+cp /srv/template/saslauthd/smtpd.conf /etc/postfix/sasl/smtpd.conf
 mkdir -p /var/spool/postfix/var/run/saslauthd
 rm -rf /run/saslauthd
 ln -s /var/spool/postfix/var/run/saslauthd   /run/saslauthd
