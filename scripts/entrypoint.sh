@@ -6,7 +6,7 @@ set -e
 export HOSTNAME=`hostname`
 
 # create lmtp mappings
-python3 /srv/scripts/createlmtpMapping.py
+python3 /srv/scripts/createLMTPMapping.py
 postmap /etc/postfix/transport
 usermod -a -G sasl postfix
 
