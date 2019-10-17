@@ -26,9 +26,10 @@ service postfix start
 postfix reload
 
 # start sasl (when imapproxy host is available)
-echo "wait for imapproxy host $IMAPPROXY_HOST:143 ..."$IMAPPROXY_HOST:143
-dockerize -wait tcp://$IMAPPROXY_HOST:143
-saslauthd -a rimap -O "$IMAPPROXY_HOST" -V -r -m /var/spool/postfix/var/run/saslauthd
-
+if ! [ -z "$IMAP_HOST" ]; then
+    echo "wait for imapproxy host ${IMAP_HOST}:143 ...
+    dockerize -wait tcp://$IMAP_HOST:143
+    saslauthd -a rimap -O "$IMAP_HOST" -V -r -m /var/spool/postfix/var/run/saslauthd
+fi
 
 tail -f /var/log/postfix.log
