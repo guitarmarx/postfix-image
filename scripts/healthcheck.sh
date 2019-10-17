@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-# check saslauthd is running
+# check saslauthd is running (if saslauthd is enabled)
+if ! [ -z "$IMAP_HOST" ]; then
+    ps -C saslauthd || exit 1
+fi
+
 ps -C saslauthd || exit 1
 
 # check postfix is running
