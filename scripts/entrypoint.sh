@@ -6,8 +6,8 @@ set -e
 export HOSTNAME=`hostname`
 
 # create lmtp mappings
-# wait for db
-dockerize -wait tcp://$DB_HOST:$DB_PORT
+dockerize -wait tcp://$DB_HOST:$DB_PORT -timeout 60s
+echo "create tables ..."
 mysql -h $DB_HOST -u $DB_USER --password=$DB_PASS $DB_NAME < /srv/scripts/create_tables.txt
 
 # config postfix
@@ -27,8 +27,7 @@ postfix reload
 
 # start sasl (when imapproxy host is available)
 if ! [ -z "$IMAP_HOST" ]; then
-    echo "wait for imapproxy host ${IMAP_HOST}:143 ...
-    dockerize -wait tcp://$IMAP_HOST:143
+    dockerize -wait tcp://$IMAP_HOST:143 -timeout 60s
     saslauthd -a rimap -O "$IMAP_HOST" -V -r -m /var/spool/postfix/var/run/saslauthd
 fi
 
