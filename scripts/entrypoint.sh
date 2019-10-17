@@ -6,7 +6,7 @@ set -e
 export HOSTNAME=`hostname`
 
 # create lmtp mappings
-dockerize -wait tcp://$DB_HOST:$DB_PORT -timeout 60s
+dockerize -wait tcp://$DB_HOST:3306 -timeout 60s
 echo "create tables ..."
 mysql -h $DB_HOST -u $DB_USER --password=$DB_PASS $DB_NAME < /srv/scripts/create_tables.txt
 

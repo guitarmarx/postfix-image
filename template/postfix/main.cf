@@ -9,9 +9,9 @@ local_recipient_maps =
 maillog_file=/var/log/postfix.log
 
 ### TLS parameters
-smtpd_tls_cert_file=/tmp/cert/cert.pem
-smtpd_tls_key_file=/tmp/cert/privkey.pem
-smtpd_tls_CAfile=/tmp/cert/fullchain.pem
+smtpd_tls_cert_file=/srv/cert/cert.pem
+smtpd_tls_key_file=/srv/cert/privkey.pem
+smtpd_tls_CAfile=/srv/cert/fullchain.pem
 smtpd_use_tls=yes
 smtpd_tls_loglevel = 2
 smtpd_tls_received_header = yes

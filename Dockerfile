@@ -6,7 +6,6 @@ MAINTAINER meteorIT GbR Marcus Kastner
 EXPOSE 25
 
 ENV DB_HOST=localhost \
-	DB_PORT=3306 \
 	DB_USER=postfix \
 	DB_PASS=postfix \
 	DB_NAME=postfix \
