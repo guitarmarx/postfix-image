@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS virtual_aliases (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  alias varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS transport (
+  id int(11) unsigned NOT NULL auto_increment,
+  domain varchar(128) NOT NULL,
+  destination varchar(128) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY domain (domain)
+);

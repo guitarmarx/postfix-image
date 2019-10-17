@@ -1,0 +1,5 @@
+hosts = {{.Env.DB_HOST}}
+user = {{.Env.DB_USER}}
+password = {{.Env.DB_PASS}}
+dbname = {{.Env.DB_NAME}}
+query = SELECT email FROM virtual_aliases WHERE alias='%s'

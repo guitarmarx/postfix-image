@@ -1,31 +1,31 @@
 FROM debian:10.1-slim
 
 MAINTAINER meteorIT GbR Marcus Kastner
+# used comfig example http://www.postfixvirtual.net/postfixconf.html
 
 EXPOSE 25
 
 ENV DB_HOST=localhost \
-	DB_USER=kopano \
-	DB_PASS=kopano \
-	DB_NAME=kopano \
-	ENCRYPT_SETTING=may\
+	DB_PORT=3306 \
+	DB_USER=postfix \
+	DB_PASS=postfix \
+	DB_NAME=postfix \
+	ENCRYPT_SETTING=may \
 	DOMAIN=localhost.local \
-	RELAY_HOST_PAIR1="localhost.local,lmtphost" \
 	SPAMCHECK_HOST=localhost \
 	SPAMCHECK_PORT=11332 \
-	IMAPPROXY_HOST=localhost \
+	IMAP_HOST=localhost \
 	MAXIMAL_QUEUE_LIFETIME="12h" \
 	BOUNCE_QUEUE_LIFETIME="4h" \
 	DOCKERIZE_VERSION=v0.6.1
 
-WORKDIR /srv
 
 RUN apt-get update &&\
     {\
         echo "postfix postfix/mailname string $DOMAIN_1"; \
         echo  "postfix postfix/main_mailer_type string 'Internet Site'";\
     } | debconf-set-selections  \
-	&& apt-get install -y --no-install-recommends postfix postfix-mysql sasl2-bin libsasl2-modules curl procps  net-tools python3\
+	&& apt-get install -y --no-install-recommends postfix postfix-mysql sasl2-bin libsasl2-modules curl procps  net-tools mariadb-client\
 	&& apt-get --purge -y remove 'exim4*'
 
 # download dockerize

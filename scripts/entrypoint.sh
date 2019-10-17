@@ -6,13 +6,14 @@ set -e
 export HOSTNAME=`hostname`
 
 # create lmtp mappings
-python3 /srv/scripts/createLMTPMapping.py
-postmap /etc/postfix/transport
-usermod -a -G sasl postfix
+# wait for db
+dockerize -wait tcp://$DB_HOST:$DB_PORT
+mysql -h $DB_HOST -u $DB_USER --password=$DB_PASS $DB_NAME < /srv/scripts/create_tables.txt
 
 # config postfix
-dockerize  -template /srv/template/postfix/mysql-virtual-alias-maps.cf.tmpl:/etc/postfix/mysql-virtual-alias-maps.cf
-dockerize  -template /srv/template/postfix/main.cf.tmpl:/etc/postfix/main.cf
+dockerize -template /srv/template/postfix:/etc/postfix
+usermod -a -G sasl postfix
+
 
 # prepare sasl
 cp /srv/template/saslauthd/smtpd.conf /etc/postfix/sasl/smtpd.conf

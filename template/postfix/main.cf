@@ -34,8 +34,8 @@ queue_run_delay = 5m
 mynetworks = [::1]/128, [::ffff:127.0.0.0]/104, 10.0.0.0/18, 172.0.0.0/10
 
 ### Weiterleitung an Kopano
-relay_domains = {{.Env.DOMAIN}} {{.Env.RELAY_DOMAIN_1}} {{.Env.RELAY_DOMAIN_2}} {{.Env.RELAY_DOMAIN_3}} {{.Env.RELAY_DOMAIN_4}} {{.Env.RELAY_DOMAIN_5}} {{.Env.RELAY_DOMAIN_6}} {{.Env.RELAY_DOMAIN_7}} {{.Env.RELAY_DOMAIN_8}} {{.Env.RELAY_DOMAIN_9}}
-transport_maps = hash:/etc/postfix/transport
+relay_domains = mysql:/etc/postfix/mysql-domains.cf
+transport_maps = mysql:/etc/postfix/mysql-transport.cf
 virtual_alias_maps=mysql:/etc/postfix/mysql-virtual-alias-maps.cf
 
 
