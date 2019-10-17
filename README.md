@@ -1,7 +1,7 @@
 # Postfix Docker Image for Relay Domains
 
-This docker image uses postfix to relay given domains to different lmtp hosts.
-It also contains sasl rimap for imap server authentication if enabled
+The image uses postfix to relay given domains to lmtp host's.
+if enabled (IMAP_HOST parameter) you can use sasl rimap authentication to authenticate against an imap server
 
 ## Build image
 ```sh
@@ -10,7 +10,7 @@ cd postfix-image
 docker build -t <imagename:version> .
 ```
 
-##Requirements
+## Requirements
 You need a running mysql database to add aliase and lmtp transport mappings
 
 ## Quickstart
@@ -65,11 +65,13 @@ IMAP_HOST | (optimal) IMAP Host for rimap auth |
 IMAP_HOST | (optimal) IMAP Host for rimap auth |
 ENCRYPT_SETTING | (optimal) set's the parameter smtp_tls_security_level | may
 
+## Aliases and lmtp transportmapping
 the image creates 2 tables when started:
-*virtual_aliases (for aliases)
-*transport (lmtp mapping)
+- virtual_aliases (for aliases)
+- transport (lmtp mapping)
 
-To add aliases or lmtp transport mapping simply execute the following statements in your mysql database
+To add aliases or lmtp transport mapping simply
+execute the following statements in your mysql database:
 ```sql
 insert into transport (alias, email) VALUES ('<alias@domain>', 'email');
 insert into transport (domain, destination) VALUES ('<domain>', 'lmtp:[<target host>]:2003');
