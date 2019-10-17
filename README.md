@@ -10,6 +10,9 @@ cd postfix-image
 docker build -t <imagename:version> .
 ```
 
+##Requirements
+You need a running mysql database to add aliase and lmtp transport mappings
+
 ## Quickstart
 
 ### Docker (standalone)
@@ -51,24 +54,23 @@ docker run -d  \
 
 Parameter | Function| Default Value|
 ---|---|---|
+DOMAIN | Server Domain | localhost.local
 DB_HOST | (required) Mysql Database Host | localhost
 DB_APP | (required) Mysql Database Name | postfix
 DB_USER | (required) Mysql Database Host | postfix
 DB_PASS | (required) Mysql Database Password | postfix
 SPAMCHECK_HOST | (required) Server for spam filtering | localhost
-IMAPPROXY_HOST | (required)
-SPAMCHECK_PORT | Portfor spam filter | 11332
+SPAMCHECK_PORT | (optional) Portfor spam filter | 11332
+IMAP_HOST | (optimal) IMAP Host for rimap auth |
+IMAP_HOST | (optimal) IMAP Host for rimap auth |
+ENCRYPT_SETTING | (optimal) set's the parameter smtp_tls_security_level | may
 
+the image creates 2 tables when started:
+*virtual_aliases (for aliases)
+*transport (lmtp mapping)
 
-DB_HOST=localhost \
-	DB_USER=postfix \
-	DB_PASS=postfix \
-	DB_NAME=postfix \
-	ENCRYPT_SETTING=may \
-	DOMAIN=localhost.local \
-	SPAMCHECK_HOST=localhost \
-	SPAMCHECK_PORT=11332 \
-	IMAP_HOST=localhost \
-	MAXIMAL_QUEUE_LIFETIME="12h" \
-	BOUNCE_QUEUE_LIFETIME="4h" \
-	DOCKERIZE_VERSION=v0.6.1
+To add aliases or lmtp transport mapping simply execute the following statements in your mysql database
+```sql
+insert into transport (alias, email) VALUES ('<alias@domain>', 'email');
+insert into transport (domain, destination) VALUES ('<domain>', 'lmtp:[<target host>]:2003');
+```
