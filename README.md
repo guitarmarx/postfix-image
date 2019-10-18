@@ -54,7 +54,7 @@ docker run -d  \
 
 Parameter | Function| Default Value|
 ---|---|---|
-DOMAIN | Server Domain | localhost.local
+DOMAIN |  (required) Server Domain | localhost.local
 DB_HOST | (required) Mysql Database Host | localhost
 DB_APP | (required) Mysql Database Name | postfix
 DB_USER | (required) Mysql Database Host | postfix
