@@ -1,0 +1,15 @@
+name: Publish Docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build and Publish
+      uses: jerray/publish-docker-action@v1.0.5
+      with:
+        registry: registry.meteorit-leipzig.de
+        repository: postfix
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+        auto_tag: true
