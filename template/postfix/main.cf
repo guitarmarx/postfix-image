@@ -8,17 +8,21 @@ local_recipient_maps =
 
 maillog_file=/var/log/postfix.log
 
-### TLS parameters
-smtpd_tls_cert_file=/srv/cert/cert.pem
-smtpd_tls_key_file=/srv/cert/privkey.pem
+### Server side TLS parameters
+smtpd_tls_chain_files =
+	/srv/cert/cert.pem,
+	/srv/cert/privkey.pem
 smtpd_tls_CAfile=/srv/cert/fullchain.pem
-smtpd_use_tls=yes
 smtpd_tls_loglevel = 2
-smtpd_tls_received_header = yes
+#smtpd_tls_received_header = yes
 smtpd_tls_security_level =  {{ .Env.ENCRYPT_SETTING }}
-#smtpd_tls_auth_only = yes
+smtpd_tls_auth_only = yes
+
 smtpd_tls_session_cache_timeout = 3600s
 tls_random_source = dev:/dev/urandom
+
+### Client side TLS parameters
+smtp_tls_security_level = {{ .Env.ENCRYPT_SETTING }}
 
 
 ### Mail-Queue Einstellungen
