@@ -10,8 +10,8 @@ maillog_file=/var/log/postfix.log
 
 ### Server side TLS parameters
 smtpd_tls_chain_files =
-	/srv/cert/cert.pem,
-	/srv/cert/privkey.pem
+	/srv/cert/privkey.pem,
+	/srv/cert/cert.pem
 smtpd_tls_CAfile=/srv/cert/fullchain.pem
 smtpd_tls_loglevel = 2
 #smtpd_tls_received_header = yes

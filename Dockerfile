@@ -1,4 +1,4 @@
-FROM debian:10.1-slim
+FROM debian:10.7-slim
 
 MAINTAINER meteorIT GbR Marcus Kastner
 # used comfig example http://www.postfixvirtual.net/postfixconf.html
