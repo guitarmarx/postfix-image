@@ -35,7 +35,7 @@ queue_run_delay = 5m
 
 
 ### nur Relayhosting vom lokalen Server:
-mynetworks = [::1]/128, [::ffff:127.0.0.0]/104, 10.0.0.0/18, 172.0.0.0/10
+mynetworks = [::1]/128, [::ffff:127.0.0.0]/104, 10.0.0.0/8, 172.16.0.0/12
 
 ### Weiterleitung an Kopano
 relay_domains = mysql:/etc/postfix/mysql-domains.cf
