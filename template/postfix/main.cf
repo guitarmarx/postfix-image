@@ -52,7 +52,7 @@ smtpd_sasl_security_options = noanonymous
 
 ### Spamfilter und DKIM-Signaturen via Rspamd
 smtpd_milters = {{.Env.SMTPD_MILTERS}}
-milter_mail_macros =  i {mail_addr} {client_addr} {client_name} {auth_authen}
+milter_mail_macros =  i {mail_addr} {client_addr} {client_name} {auth_type} {auth_authen}
 milter_default_action = accept
 
 
