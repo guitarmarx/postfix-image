@@ -23,7 +23,7 @@ docker run -d  \
     -e DB_USER=postfix \
     -e DB_PASS=postfix \
     -e DB_NAME=postfix \
-    -e SPAMCHECK_HOST=<your anti spam server> \
+    -e SMTPD_MILTERS="inet:<host1>:<port>, inet:<host2>:<port>" \
     -e DOMAIN=<your domain name> \
     --hostname `hostname` \
     -v <path>/cert.pem:/srv/cert/cert.pem:ro \
@@ -40,7 +40,7 @@ docker run -d  \
     -e DB_USER=postfix \
     -e DB_PASS=postfix \
     -e DB_NAME=postfix \
-    -e SPAMCHECK_HOST=<your anti spam server> \
+    -e SMTPD_MILTERS="inet:<host1>:<port>, inet:<host2>:<port>" \
     -e DOMAIN=<your domain name> \
     --hostname "{{.Node.Hostname}}" \
     --mount type=bind,src=<path>/cert.pem,dst=/srv/cert/cert.pem,readonly \
@@ -59,8 +59,7 @@ DB_HOST | (required) Mysql Database Host | localhost
 DB_APP | (required) Mysql Database Name | postfix
 DB_USER | (required) Mysql Database Host | postfix
 DB_PASS | (required) Mysql Database Password | postfix
-SPAMCHECK_HOST | (required) Server for spam filtering | localhost
-SPAMCHECK_PORT | (optional) Portfor spam filter | 11332
+SMTPD_MILTERS | (required) Milter String | -
 IMAP_HOST | (optimal) IMAP Host for rimap auth |
 IMAP_HOST | (optimal) IMAP Host for rimap auth |
 ENCRYPT_SETTING | (optimal) set's the parameter smtp_tls_security_level | may
