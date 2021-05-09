@@ -2,6 +2,6 @@ hosts = {{.Env.DB_HOST}}
 user = {{.Env.DB_USER}}
 password = {{.Env.DB_PASS}}
 dbname = {{.Env.DB_NAME}}
-query = SELECT domain FROM transport where domain = '%s'
+query = SELECT credential FROM sasl_credentials  WHERE server='%s'
 
 

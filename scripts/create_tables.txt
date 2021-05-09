@@ -13,3 +13,8 @@ CREATE TABLE IF NOT EXISTS transport (
   PRIMARY KEY (id),
   UNIQUE KEY domain (domain)
 );
+
+CREATE TABLE IF NOT EXISTS sasl_credentials (
+    server varchar(80) NOT NULL,
+    cred varchar(80),
+    PRIMARY KEY (server) );
