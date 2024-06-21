@@ -89,8 +89,6 @@ smtpd_recipient_restrictions =
 	reject_unknown_sender_domain,
 	reject_unauth_destination,
 	reject_unknown_client,
-	reject_rbl_client zen.spamhaus.org,
-	reject_rbl_client cbl.abuseat.org,
 	reject_rbl_client bl.spamcop.net,
 	reject_rbl_client dul.dnsbl.sorbs.net,
 	reject_rbl_client whois.rfc-ignorant.org,
